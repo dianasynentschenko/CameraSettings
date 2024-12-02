@@ -1,5 +1,6 @@
 ﻿using IPCameraSettings.Models;
 using IPCameraSettings.Services;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,16 +23,32 @@ namespace IPCameraSettings
     public partial class SettingsWindow : Window
     {
         private readonly ApiClient apiClient;
-        private StreamSettings streamSettings;
+        private StreamSettings streamSettings;        
 
-        public SettingsWindow(string ipAddress, string username, string password)
+        public SettingsWindow(ApiClient apiClient)
         {
             InitializeComponent();
-
-            var baseURL = $"http://{ipAddress}/API";
-            apiClient = new ApiClient(baseURL, username, password);
             
+            this.apiClient = apiClient;
+
+            LoadSettings();
             
         }
+
+        private async void LoadSettings()
+        {
+            try
+            {
+                streamSettings = await apiClient.GetStreamSettingsAsync();
+
+                    SettingsBox.Text = $"Resolution: {streamSettings.Resolution}\n";
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show($"Error loading settings: {ex.Message}");
+
+            }
+        }
+
     }
 }

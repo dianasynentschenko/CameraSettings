@@ -4,7 +4,10 @@
         Title="Camera API - Settings" Height="450" Width="400">
     <Grid Margin="10">
         <StackPanel>
-           
+            <TextBlock Text="Stream Settings" Margin="0,5,0,5"/>
+            <TextBox Name="SettingsBox" IsReadOnly="True" Height="200" VerticalScrollBarVisibility="Auto"/>
+
+            
         </StackPanel>
     </Grid>
 </Window>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IPCameraSettings.Models
 {
-    internal class StreamSettings
+    public class StreamSettings
     {
         [JsonProperty("resolution")]
         public string Resolution { get; set; }

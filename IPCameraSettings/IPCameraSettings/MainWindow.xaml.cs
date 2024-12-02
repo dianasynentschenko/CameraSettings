@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IPCameraSettings.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,17 +26,29 @@ namespace IPCameraSettings
             InitializeComponent();
         }
 
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             var ipAddress = IpAddressBox.Text;
             var username = UsernameBox.Text;
             var password = PasswordBox.Password;
 
-            var settingsWindow = new SettingsWindow(ipAddress, username, password);
-            settingsWindow.Show();
+            var baseURL = $"http://{ipAddress}";
+            var apiClient = new ApiClient(ipAddress, username, password);
 
-            this.Close();
-
+            bool isLoggedIn = await apiClient.LoginAsync(username, password);
+            if (isLoggedIn)
+            {
+                var settingsWindow = new SettingsWindow(apiClient);
+                settingsWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Login failed. Please check your username, password, and IP address.");
+            }
         }
+
+
     }
+    
 }
