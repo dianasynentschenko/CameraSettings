@@ -1,12 +1,34 @@
 ﻿<Window x:Class="IPCameraSettings.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:IPCameraSettings"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Camera API - Login" Height="384" Width="640"
+        Background="#E3F2FD">
+    <Grid Margin="10">
+        <StackPanel Margin="0,65,0,0">
+            <!-- IP Address -->
+            <TextBlock Text="IP Address" Margin="0,5,0,5" Width="68" 
+                       Foreground="#1E88E5" FontWeight="Bold" />
+            <TextBox Name="IpAddressBox" Width="190" BorderBrush="#1E88E5" 
+                     BorderThickness="1" Background="#BBDEFB" />
+
+            <!-- Username -->
+            <TextBlock Text="Username" Margin="0,5,0,5" Width="55" 
+                       Foreground="#1E88E5" FontWeight="Bold" />
+            <TextBox Name="UsernameBox" Width="190" BorderBrush="#1E88E5" 
+                     BorderThickness="1" Background="#BBDEFB" />
+
+            <!-- Password -->
+            <TextBlock Text="Password" Margin="0,5,0,5" Width="55" 
+                       Foreground="#1E88E5" FontWeight="Bold" />
+            <PasswordBox Name="PasswordBox" Width="190" BorderBrush="#1E88E5" 
+                         BorderThickness="1" Background="#BBDEFB" />
+
+            <!-- Login Button -->
+            <Button Name="LoginButton" Content="Login" Click="LoginButton_Click" Width="190" Margin="0,10,0,0" 
+                    Background="#1E88E5" Foreground="White" FontWeight="Bold" 
+                    BorderThickness="0" Padding="10,5" />
+        </StackPanel>
+
+        <!-- Footer Text -->
     </Grid>
 </Window>

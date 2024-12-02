@@ -24,5 +24,18 @@ namespace IPCameraSettings
         {
             InitializeComponent();
         }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            var ipAddress = IpAddressBox.Text;
+            var username = UsernameBox.Text;
+            var password = PasswordBox.Password;
+
+            var settingsWindow = new SettingsWindow(ipAddress, username, password);
+            settingsWindow.Show();
+
+            this.Close();
+
+        }
     }
 }
