@@ -42,7 +42,7 @@ namespace IPCameraSettings.Services
 
             httpClient = new HttpClient(handler)
             {
-                BaseAddress = uri
+                BaseAddress = new Uri(baseURL)
             };
         }
 
@@ -50,14 +50,33 @@ namespace IPCameraSettings.Services
         {
             var loginData = new
             {
-                username = username,
-                password = password
+                Username = username,
+                Password = password
             };
 
             var json = JsonConvert.SerializeObject(loginData);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
+                        
+            var request = new HttpRequestMessage(HttpMethod.Post, "...login...")
+            {
+                Content = content
+            };
 
-            var response = await httpClient.PostAsync("...login...", content);
+            
+            await LogRequest(request);
+
+            var response = await httpClient.SendAsync(request);
+
+            
+            LogResponse(response);
+
+
+
+            Console.WriteLine($"Response Status Code: {response.StatusCode}");
+            foreach (var header in response.Headers)
+            {
+                Console.WriteLine($"{header.Key}: {string.Join(", ", header.Value)}");
+            }
 
             if (!response.IsSuccessStatusCode)
             {
@@ -85,7 +104,7 @@ namespace IPCameraSettings.Services
 
         public async Task<StreamSettings> GetStreamSettingsAsync()
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, "...Main stream...");
+            var request = new HttpRequestMessage(HttpMethod.Get, "....");
             AddCsrfToken(request);
 
             var response = await httpClient.SendAsync(request);
@@ -103,5 +122,45 @@ namespace IPCameraSettings.Services
             }
 
         }
+
+
+        private async Task LogRequest(HttpRequestMessage request)
+        {
+            Console.WriteLine("=== Request ===");
+            Console.WriteLine($"{request.Method} {request.RequestUri}");
+
+            foreach (var header in request.Headers)
+            {
+                Console.WriteLine($"{header.Key}: {string.Join(", ", header.Value)}");
+            }
+
+            if (request.Content != null)
+            {
+                var content = await request.Content.ReadAsStringAsync();
+                Console.WriteLine($"Content: {content}");
+            }
+
+            Console.WriteLine("================");
+        }
+
+        private void LogResponse(HttpResponseMessage response)
+        {
+            Console.WriteLine("=== Response ===");
+            Console.WriteLine($"Status Code: {response.StatusCode}");
+
+            foreach (var header in response.Headers)
+            {
+                Console.WriteLine($"{header.Key}: {string.Join(", ", header.Value)}");
+            }
+
+            if (response.Content != null)
+            {
+                var content = response.Content.ReadAsStringAsync().Result;
+                Console.WriteLine($"Content: {content}");
+            }
+
+            Console.WriteLine("================");
+        }
+
     }
 }
