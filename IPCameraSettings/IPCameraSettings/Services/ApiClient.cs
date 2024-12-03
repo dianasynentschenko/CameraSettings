@@ -15,18 +15,15 @@ namespace IPCameraSettings.Services
         private string csrfToken;
 
         public ApiClient(string baseURL, string username, string password)
-        {
+        {                       
+            baseURL = baseURL.Trim();           
 
-           
-            baseURL = baseURL.Trim();
-
-           
-            if (!baseURL.StartsWith("http://"))
+            // use https, when http
+            if (!baseURL.StartsWith("https://"))
             {
-                baseURL = "http://" + baseURL;
+                baseURL = "https://" + baseURL;
             }
 
-           
             if (!Uri.TryCreate(baseURL, UriKind.Absolute, out Uri uri))
             {
                 throw new FormatException($"Invalid baseURL format: {baseURL}");
@@ -34,6 +31,7 @@ namespace IPCameraSettings.Services
 
             var handler = new HttpClientHandler
             {
+                AllowAutoRedirect = false, // turn off redirect
                 Credentials = new System.Net.NetworkCredential(username, password),
                 ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
 
@@ -42,41 +40,80 @@ namespace IPCameraSettings.Services
 
             httpClient = new HttpClient(handler)
             {
-                BaseAddress = new Uri(baseURL)
+                BaseAddress = uri
             };
+            Console.WriteLine($"BaseAddress set to: {httpClient.BaseAddress}");
         }
+
+        private async Task<string> GenerateDigestHeader(string url, string username, string password)
+        {
+            // first requestti receive WWW-Authenticate
+            var initialRequest = new HttpRequestMessage(HttpMethod.Post, url);            
+            Console.WriteLine($"Request URI: {initialRequest.RequestUri}");
+
+            var response = await httpClient.SendAsync(initialRequest);
+
+            if (!response.Headers.Contains("WWW-Authenticate"))
+            {
+                throw new Exception("Digest authentication not supported by the server.");
+            }
+
+            var authenticateHeader = response.Headers.GetValues("WWW-Authenticate").FirstOrDefault();
+
+            // params from WWW-Authenticate
+            var realm = ExtractParameter(authenticateHeader, "realm");
+            var nonce = ExtractParameter(authenticateHeader, "nonce");
+            var qop = ExtractParameter(authenticateHeader, "qop");
+
+            // HA1, HA2, response
+            var ha1 = MD5Hash($"{username}:{realm}:{password}");
+            var ha2 = MD5Hash($"POST:{url}");
+            Console.WriteLine($"HA1: {ha1}");
+            Console.WriteLine($"HA2: {ha2}");
+           
+            var nc = "00000001"; // Nonce Count
+            var cnonce = Guid.NewGuid().ToString("N"); // Client Nonce
+
+            var responseHash = MD5Hash($"{ha1}:{nonce}:{nc}:{cnonce}:{qop}:{ha2}");
+            Console.WriteLine($"Response: {responseHash}");
+
+            // Headers Authorization
+            return $"Digest username=\"{username}\", realm=\"{realm}\", nonce=\"{nonce}\", uri=\"{url}\", qop={qop}, nc={nc}, cnonce=\"{cnonce}\", response=\"{responseHash}\"";
+        }
+
+        private string MD5Hash(string input)
+        {
+            using (var md5 = System.Security.Cryptography.MD5.Create())
+            {
+                var inputBytes = Encoding.UTF8.GetBytes(input);
+                var hashBytes = md5.ComputeHash(inputBytes);
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+            }
+        }
+
+        private string ExtractParameter(string header, string paramName)
+        {
+            var param = $"{paramName}=\"";
+            var startIndex = header.IndexOf(param) + param.Length;
+            var endIndex = header.IndexOf("\"", startIndex);
+            return header.Substring(startIndex, endIndex - startIndex);
+        }
+
 
         public async Task<bool> LoginAsync(string username, string password)
         {
-            var loginData = new
-            {
-                Username = username,
-                Password = password
-            };
+            var loginUrl = "...login...";
 
-            var json = JsonConvert.SerializeObject(loginData);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-                        
-            var request = new HttpRequestMessage(HttpMethod.Post, "...login...")
-            {
-                Content = content
-            };
+            // Headers Digest Authentication
+            var digestHeader = await GenerateDigestHeader(loginUrl, username, password);
 
-            
+            // Query with headers Authorization
+            var request = new HttpRequestMessage(HttpMethod.Post, loginUrl);
+            request.Headers.Add("Authorization", digestHeader);                       
             await LogRequest(request);
 
-            var response = await httpClient.SendAsync(request);
-
-            
+            var response = await httpClient.SendAsync(request);           
             LogResponse(response);
-
-
-
-            Console.WriteLine($"Response Status Code: {response.StatusCode}");
-            foreach (var header in response.Headers)
-            {
-                Console.WriteLine($"{header.Key}: {string.Join(", ", header.Value)}");
-            }
 
             if (!response.IsSuccessStatusCode)
             {
@@ -85,26 +122,23 @@ namespace IPCameraSettings.Services
                 return false;
             }
 
-            if (response.IsSuccessStatusCode)
+            if (response.Headers.TryGetValues("X-CSRFToken", out var values))
             {
-                if (response.Headers.TryGetValues("X-CSRFToken", out var values))
-                {
-                    csrfToken = values.FirstOrDefault();
-                }
-                else
-                {
-                    Console.WriteLine("Warning: CSRF token not found in response headers.");
-                }
-
-                return true;
+                csrfToken = values.FirstOrDefault();
+            }
+            else
+            {
+                Console.WriteLine("Warning: CSRF token not found in response headers.");
             }
 
-            return false;
+            return true;
         }
+
+               
 
         public async Task<StreamSettings> GetStreamSettingsAsync()
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, "....");
+            var request = new HttpRequestMessage(HttpMethod.Get, "...main stream...");
             AddCsrfToken(request);
 
             var response = await httpClient.SendAsync(request);
