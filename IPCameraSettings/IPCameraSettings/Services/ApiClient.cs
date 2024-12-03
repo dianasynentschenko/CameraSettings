@@ -1,8 +1,10 @@
 ﻿using IPCameraSettings.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,7 @@ namespace IPCameraSettings.Services
     public class ApiClient
     {
         private readonly HttpClient httpClient;
+        private readonly CookieContainer cookieContainer;
         private string csrfToken;
 
         public ApiClient(string baseURL, string username, string password)
@@ -29,12 +32,16 @@ namespace IPCameraSettings.Services
                 throw new FormatException($"Invalid baseURL format: {baseURL}");
             }
 
+
+            cookieContainer = new CookieContainer();
             var handler = new HttpClientHandler
             {
                 AllowAutoRedirect = false, // turn off redirect
                 Credentials = new System.Net.NetworkCredential(username, password),
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true,
 
+                UseCookies = true,
+                CookieContainer = cookieContainer
 
             };
 
@@ -131,21 +138,47 @@ namespace IPCameraSettings.Services
                 Console.WriteLine("Warning: CSRF token not found in response headers.");
             }
 
+            var cookies = cookieContainer.GetCookies(new Uri(httpClient.BaseAddress + loginUrl));
+            foreach (Cookie cookie in cookies)
+            {
+                Console.WriteLine($"Cookie: {cookie.Name} = {cookie.Value}");
+            }
+
             return true;
         }
 
                
 
         public async Task<StreamSettings> GetStreamSettingsAsync()
-        {
-            var request = new HttpRequestMessage(HttpMethod.Get, "...main stream...");
-            AddCsrfToken(request);
+        {            
+            var request = new HttpRequestMessage(HttpMethod.Post, "...main stream...");
 
+            AddCsrfToken(request);
+             
             var response = await httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
 
             var json = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<StreamSettings>(json);
+            // return JsonConvert.DeserializeObject<StreamSettings>(json);
+
+            try
+            {
+                var jObject = JObject.Parse(json);
+                                
+                var ch1Data = jObject["data"]?["channel_info"]?["CH1"];
+                if (ch1Data != null)
+                {
+                    return ch1Data.ToObject<StreamSettings>();
+                }
+                else
+                {
+                    throw new Exception("Channel data not found in JSON response.");
+                }
+            }
+            catch (JsonException ex)
+            {
+                throw new Exception("Error deserializing StreamSettings: " + ex.Message);
+            }
         }
 
         private void AddCsrfToken(HttpRequestMessage request)

@@ -41,7 +41,17 @@ namespace IPCameraSettings
             {
                 streamSettings = await apiClient.GetStreamSettingsAsync();
 
-                    SettingsBox.Text = $"Resolution: {streamSettings.Resolution}\n";
+                    SettingsBox.Text = $"Resolution: {streamSettings.Resolution}\n"+
+                           $"FPS: {streamSettings.FPS}\n" +
+                           $"Bitrate: {streamSettings.Bitrate}\n" +
+                           $"Bitrate mode: {streamSettings.BitrateMode}\n"+
+                           $"Custom bitrate: {streamSettings.CustomBitrate}\n" +
+                           $"Video encode type: {streamSettings.VideoEncodeType}\n" +
+                           $"Video encode level: {streamSettings.VideoEncodeLevel}\n" +
+                           $"Bitrate control: {streamSettings.BitrateControl}\n" +
+                           $"Video quality: {streamSettings.VideoQuality}\n" +
+                           $"Audio: {streamSettings.Audio}\n" +
+                           $"I frame interval: {streamSettings.IFrameInterval}\n";
             }
             catch (Exception ex) 
             {
