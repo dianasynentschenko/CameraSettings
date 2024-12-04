@@ -32,7 +32,6 @@ namespace IPCameraSettings.Services
                 throw new FormatException($"Invalid baseURL format: {baseURL}");
             }
 
-
             cookieContainer = new CookieContainer();
             var handler = new HttpClientHandler
             {
@@ -51,6 +50,7 @@ namespace IPCameraSettings.Services
             };
             Console.WriteLine($"BaseAddress set to: {httpClient.BaseAddress}");
         }
+
 
         private async Task<string> GenerateDigestHeader(string url, string username, string password)
         {
@@ -88,6 +88,7 @@ namespace IPCameraSettings.Services
             return $"Digest username=\"{username}\", realm=\"{realm}\", nonce=\"{nonce}\", uri=\"{url}\", qop={qop}, nc={nc}, cnonce=\"{cnonce}\", response=\"{responseHash}\"";
         }
 
+
         private string MD5Hash(string input)
         {
             using (var md5 = System.Security.Cryptography.MD5.Create())
@@ -97,6 +98,7 @@ namespace IPCameraSettings.Services
                 return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
             }
         }
+
 
         private string ExtractParameter(string header, string paramName)
         {
@@ -109,7 +111,7 @@ namespace IPCameraSettings.Services
 
         public async Task<bool> LoginAsync(string username, string password)
         {
-            var loginUrl = "...login...";
+            var loginUrl = "...Login...";
 
             // Headers Digest Authentication
             var digestHeader = await GenerateDigestHeader(loginUrl, username, password);
@@ -148,10 +150,9 @@ namespace IPCameraSettings.Services
         }
 
                
-
         public async Task<StreamSettings> GetStreamSettingsAsync()
         {            
-            var request = new HttpRequestMessage(HttpMethod.Post, "...main stream...");
+            var request = new HttpRequestMessage(HttpMethod.Post, "...MainStream Get...");
 
             AddCsrfToken(request);
              
@@ -181,13 +182,48 @@ namespace IPCameraSettings.Services
             }
         }
 
+
+        public async Task<bool> UpdateStreamSettingsAsync()
+        {
+            var url = "...MainStream Set...";
+
+            // JSON
+            var json = "";
+     
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // create request
+            var request = new HttpRequestMessage(HttpMethod.Post, url);
+           
+            AddCsrfToken(request);// add X-CSRFToken
+                                  
+            request.Content = content;
+
+            // send request
+            var response = await httpClient.SendAsync(request);            
+            LogResponse(response);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Stream settings updated successfully!");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine($"Failed to update stream settings. Status: {response.StatusCode}");
+                var errorContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Error Response: {errorContent}");
+                return false;
+            }
+        }
+
+
         private void AddCsrfToken(HttpRequestMessage request)
         {
             if (!string.IsNullOrEmpty(csrfToken))
             {
                 request.Headers.Add("X-CSRFToken", csrfToken);
             }
-
         }
 
 

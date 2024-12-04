@@ -7,7 +7,11 @@
             <TextBlock Text="Stream Settings" Margin="0,5,0,5"/>
             <TextBox Name="SettingsBox" IsReadOnly="True" Height="200" VerticalScrollBarVisibility="Auto"/>
 
-            
         </StackPanel>
+
+        <Button Content="update"
+Width="100"
+Click="UpdateButton_Click" RenderTransformOrigin="0.541,4.176" Margin="140,309,140,75" />
+
     </Grid>
 </Window>
