@@ -1,4 +1,5 @@
 ﻿using IPCameraSettings.Services;
+using IPCameraSettings.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,25 +27,12 @@ namespace IPCameraSettings
             InitializeComponent();
         }
 
-        private async void LoginButton_Click(object sender, RoutedEventArgs e)
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            string ipAddress = IpAddressBox.Text;
-            string username = UsernameBox.Text;
-            string password = PasswordBox.Password;
-
-            string baseURL = $"http://{ipAddress}";
-            ApiClient apiClient = new ApiClient(ipAddress, username, password);
-
-            bool isLoggedIn = await apiClient.LoginAsync(username, password);
-            if (isLoggedIn)
+            // Связываем пароль с ViewModel
+            if (DataContext is UserViewModel viewModel)
             {
-                SettingsWindow settingsWindow = new SettingsWindow(apiClient);
-                settingsWindow.Show();
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Login failed. Please check your username, password, and IP address.");
+                viewModel.Password = (sender as PasswordBox)?.Password;
             }
         }
 

@@ -17,3 +17,5 @@ D:\0_VIDEOR\Projects\IPCameraSettings\IPCameraSettings\obj\Debug\IPCameraSetting
 D:\0_VIDEOR\Projects\IPCameraSettings\IPCameraSettings\obj\Debug\IPCamera.0B6BAC4B.Up2Date
 D:\0_VIDEOR\Projects\IPCameraSettings\IPCameraSettings\obj\Debug\IPCameraSettings.exe
 D:\0_VIDEOR\Projects\IPCameraSettings\IPCameraSettings\obj\Debug\IPCameraSettings.pdb
+D:\0_VIDEOR\Projects\IPCameraSettings\IPCameraSettings\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\0_VIDEOR\Projects\IPCameraSettings\IPCameraSettings\obj\Debug\IPCameraSettings_MarkupCompile.lref
