@@ -28,17 +28,17 @@ namespace IPCameraSettings
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            var ipAddress = IpAddressBox.Text;
-            var username = UsernameBox.Text;
-            var password = PasswordBox.Password;
+            string ipAddress = IpAddressBox.Text;
+            string username = UsernameBox.Text;
+            string password = PasswordBox.Password;
 
-            var baseURL = $"http://{ipAddress}";
-            var apiClient = new ApiClient(ipAddress, username, password);
+            string baseURL = $"http://{ipAddress}";
+            ApiClient apiClient = new ApiClient(ipAddress, username, password);
 
             bool isLoggedIn = await apiClient.LoginAsync(username, password);
             if (isLoggedIn)
             {
-                var settingsWindow = new SettingsWindow(apiClient);
+                SettingsWindow settingsWindow = new SettingsWindow(apiClient);
                 settingsWindow.Show();
                 this.Close();
             }

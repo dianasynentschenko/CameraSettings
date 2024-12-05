@@ -9,9 +9,7 @@
 
         </StackPanel>
 
-        <Button Content="update"
-Width="100"
-Click="UpdateButton_Click" RenderTransformOrigin="0.541,4.176" Margin="140,309,140,75" />
+
 
     </Grid>
 </Window>

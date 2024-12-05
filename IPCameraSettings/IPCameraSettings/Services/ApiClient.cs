@@ -33,8 +33,8 @@ namespace IPCameraSettings.Services
             }
 
             cookieContainer = new CookieContainer();
-            var handler = new HttpClientHandler
-            {
+            HttpClientHandler handler = new HttpClientHandler           
+               {
                 AllowAutoRedirect = false, // turn off redirect
                 Credentials = new System.Net.NetworkCredential(username, password),
                 ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true,
@@ -42,7 +42,7 @@ namespace IPCameraSettings.Services
                 UseCookies = true,
                 CookieContainer = cookieContainer
 
-            };
+               };
 
             httpClient = new HttpClient(handler)
             {
@@ -55,33 +55,33 @@ namespace IPCameraSettings.Services
         private async Task<string> GenerateDigestHeader(string url, string username, string password)
         {
             // first requestti receive WWW-Authenticate
-            var initialRequest = new HttpRequestMessage(HttpMethod.Post, url);            
+            HttpRequestMessage initialRequest = new HttpRequestMessage(HttpMethod.Post, url);            
             Console.WriteLine($"Request URI: {initialRequest.RequestUri}");
 
-            var response = await httpClient.SendAsync(initialRequest);
+            HttpResponseMessage response = await httpClient.SendAsync(initialRequest);
 
             if (!response.Headers.Contains("WWW-Authenticate"))
             {
                 throw new Exception("Digest authentication not supported by the server.");
             }
 
-            var authenticateHeader = response.Headers.GetValues("WWW-Authenticate").FirstOrDefault();
+            string authenticateHeader = response.Headers.GetValues("WWW-Authenticate").FirstOrDefault();
 
             // params from WWW-Authenticate
-            var realm = ExtractParameter(authenticateHeader, "realm");
-            var nonce = ExtractParameter(authenticateHeader, "nonce");
-            var qop = ExtractParameter(authenticateHeader, "qop");
+            string realm = ExtractParameter(authenticateHeader, "realm");
+            string nonce = ExtractParameter(authenticateHeader, "nonce");
+            string qop = ExtractParameter(authenticateHeader, "qop");
 
             // HA1, HA2, response
-            var ha1 = MD5Hash($"{username}:{realm}:{password}");
-            var ha2 = MD5Hash($"POST:{url}");
+            string ha1 = MD5Hash($"{username}:{realm}:{password}");
+            string ha2 = MD5Hash($"POST:{url}");
             Console.WriteLine($"HA1: {ha1}");
             Console.WriteLine($"HA2: {ha2}");
            
-            var nc = "00000001"; // Nonce Count
-            var cnonce = Guid.NewGuid().ToString("N"); // Client Nonce
+            string nc = "00000001"; // Nonce Count
+            string cnonce = Guid.NewGuid().ToString("N"); // Client Nonce
 
-            var responseHash = MD5Hash($"{ha1}:{nonce}:{nc}:{cnonce}:{qop}:{ha2}");
+            string responseHash = MD5Hash($"{ha1}:{nonce}:{nc}:{cnonce}:{qop}:{ha2}");
             Console.WriteLine($"Response: {responseHash}");
 
             // Headers Authorization
@@ -91,10 +91,10 @@ namespace IPCameraSettings.Services
 
         private string MD5Hash(string input)
         {
-            using (var md5 = System.Security.Cryptography.MD5.Create())
+            using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
             {
-                var inputBytes = Encoding.UTF8.GetBytes(input);
-                var hashBytes = md5.ComputeHash(inputBytes);
+                byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
                 return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
             }
         }
@@ -102,36 +102,36 @@ namespace IPCameraSettings.Services
 
         private string ExtractParameter(string header, string paramName)
         {
-            var param = $"{paramName}=\"";
-            var startIndex = header.IndexOf(param) + param.Length;
-            var endIndex = header.IndexOf("\"", startIndex);
+            string param = $"{paramName}=\"";
+            int startIndex = header.IndexOf(param) + param.Length;
+            int endIndex = header.IndexOf("\"", startIndex);
             return header.Substring(startIndex, endIndex - startIndex);
         }
 
 
         public async Task<bool> LoginAsync(string username, string password)
         {
-            var loginUrl = "...Login...";
+            string loginUrl = "...Login...";
 
             // Headers Digest Authentication
-            var digestHeader = await GenerateDigestHeader(loginUrl, username, password);
+            string digestHeader = await GenerateDigestHeader(loginUrl, username, password);
 
             // Query with headers Authorization
-            var request = new HttpRequestMessage(HttpMethod.Post, loginUrl);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, loginUrl);
             request.Headers.Add("Authorization", digestHeader);                       
             await LogRequest(request);
 
-            var response = await httpClient.SendAsync(request);           
+            HttpResponseMessage response = await httpClient.SendAsync(request);           
             LogResponse(response);
 
             if (!response.IsSuccessStatusCode)
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
+                string errorContent = await response.Content.ReadAsStringAsync();
                 Console.WriteLine($"Login failed. Status: {response.StatusCode}, Response: {errorContent}");
                 return false;
             }
 
-            if (response.Headers.TryGetValues("X-CSRFToken", out var values))
+            if (response.Headers.TryGetValues("X-CSRFToken", out IEnumerable<string> values))
             {
                 csrfToken = values.FirstOrDefault();
             }
@@ -140,7 +140,7 @@ namespace IPCameraSettings.Services
                 Console.WriteLine("Warning: CSRF token not found in response headers.");
             }
 
-            var cookies = cookieContainer.GetCookies(new Uri(httpClient.BaseAddress + loginUrl));
+            CookieCollection cookies = cookieContainer.GetCookies(new Uri(httpClient.BaseAddress + loginUrl));
             foreach (Cookie cookie in cookies)
             {
                 Console.WriteLine($"Cookie: {cookie.Name} = {cookie.Value}");
@@ -152,21 +152,21 @@ namespace IPCameraSettings.Services
                
         public async Task<StreamSettings> GetStreamSettingsAsync()
         {            
-            var request = new HttpRequestMessage(HttpMethod.Post, "...MainStream Get...");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "...Get...");
 
             AddCsrfToken(request);
              
-            var response = await httpClient.SendAsync(request);
+            HttpResponseMessage response = await httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
 
-            var json = await response.Content.ReadAsStringAsync();
+            string json = await response.Content.ReadAsStringAsync();
             // return JsonConvert.DeserializeObject<StreamSettings>(json);
 
             try
             {
-                var jObject = JObject.Parse(json);
-                                
-                var ch1Data = jObject["data"]?["channel_info"]?["CH1"];
+                JObject jObject = JObject.Parse(json);
+
+                JToken ch1Data = jObject["data"]?["channel_info"]?["CH1"];
                 if (ch1Data != null)
                 {
                     return ch1Data.ToObject<StreamSettings>();
@@ -185,22 +185,22 @@ namespace IPCameraSettings.Services
 
         public async Task<bool> UpdateStreamSettingsAsync()
         {
-            var url = "...MainStream Set...";
+            string url = "...Set...";
 
             // JSON
-            var json = "";
-     
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            string json = "";
+
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             // create request
-            var request = new HttpRequestMessage(HttpMethod.Post, url);
+            HttpRequestMessage  request = new HttpRequestMessage(HttpMethod.Post, url);
            
             AddCsrfToken(request);// add X-CSRFToken
                                   
             request.Content = content;
 
             // send request
-            var response = await httpClient.SendAsync(request);            
+            HttpResponseMessage response = await httpClient.SendAsync(request);            
             LogResponse(response);
 
             if (response.IsSuccessStatusCode)
@@ -211,7 +211,7 @@ namespace IPCameraSettings.Services
             else
             {
                 Console.WriteLine($"Failed to update stream settings. Status: {response.StatusCode}");
-                var errorContent = await response.Content.ReadAsStringAsync();
+                string errorContent = await response.Content.ReadAsStringAsync();
                 Console.WriteLine($"Error Response: {errorContent}");
                 return false;
             }
@@ -232,14 +232,14 @@ namespace IPCameraSettings.Services
             Console.WriteLine("=== Request ===");
             Console.WriteLine($"{request.Method} {request.RequestUri}");
 
-            foreach (var header in request.Headers)
+            foreach (KeyValuePair<string, IEnumerable<string>> header in request.Headers)
             {
                 Console.WriteLine($"{header.Key}: {string.Join(", ", header.Value)}");
             }
 
             if (request.Content != null)
             {
-                var content = await request.Content.ReadAsStringAsync();
+                string content = await request.Content.ReadAsStringAsync();
                 Console.WriteLine($"Content: {content}");
             }
 
@@ -251,14 +251,14 @@ namespace IPCameraSettings.Services
             Console.WriteLine("=== Response ===");
             Console.WriteLine($"Status Code: {response.StatusCode}");
 
-            foreach (var header in response.Headers)
+            foreach (KeyValuePair<string, IEnumerable<string>> header in response.Headers)
             {
                 Console.WriteLine($"{header.Key}: {string.Join(", ", header.Value)}");
             }
 
             if (response.Content != null)
             {
-                var content = response.Content.ReadAsStringAsync().Result;
+                string content = response.Content.ReadAsStringAsync().Result;
                 Console.WriteLine($"Content: {content}");
             }
 
