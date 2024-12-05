@@ -1,15 +1,19 @@
 ﻿<Window x:Class="IPCameraSettings.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Camera API - Settings" Height="450" Width="400">
-    <Grid Margin="10">
+        xmlns:vm="clr-namespace:IPCameraSettings.ViewModels"
+        Title="SettingsWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:UserViewModel />
+    </Window.DataContext>
+    <Grid>
         <StackPanel>
-            <TextBlock Text="Stream Settings" Margin="0,5,0,5"/>
-            <TextBox Name="SettingsBox" IsReadOnly="True" Height="200" VerticalScrollBarVisibility="Auto"/>
-
+            <Button Content="Load Settings" Command="{Binding LoadSettingsCommand}" />
+            <Button Content="Save Settings" Command="{Binding SaveSettingsCommand}" />
+            <TextBlock Text="Resolution:" />
+            <TextBox Text="{Binding StreamSettings.Resolution}" />
+            <TextBlock Text="FPS:" />
+            <TextBox Text="{Binding StreamSettings.FPS}" />
         </StackPanel>
-
-
-
     </Grid>
 </Window>

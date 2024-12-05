@@ -28,8 +28,7 @@ namespace IPCameraSettings
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            // Связываем пароль с ViewModel
+        {            
             if (DataContext is UserViewModel viewModel)
             {
                 viewModel.Password = (sender as PasswordBox)?.Password;

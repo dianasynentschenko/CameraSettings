@@ -51,22 +51,19 @@ namespace IPCameraSettings.ViewModels
             ErrorMessage = null;
 
             try
-            {
-                // Создаём клиента API
+            {                
                 apiClient = new ApiClient(IPAddress, Username, Password);
-
-                // Выполняем логин
+                
                 bool isLoggedIn = await apiClient.LoginAsync(Username, Password);
 
                 if (isLoggedIn)
                 {
                     MessageBox.Show("Login successful!");
-
-                    // Переход к следующему окну
+                                       
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        //var settingsWindow = new SettingsWindow(new SettingsViewModel(apiClient));
-                        //settingsWindow.Show();
+                        SettingsWindow settingsWindow = new SettingsWindow(new SettingsViewModel(apiClient));
+                        settingsWindow.Show();
                         Application.Current.MainWindow.Close();
                     });
 
