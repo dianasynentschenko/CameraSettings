@@ -149,7 +149,34 @@ namespace IPCameraSettings.Services
             return true;
         }
 
-               
+        public async Task<bool> SendHeartbeatAsync()
+        {
+            try
+            {                
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "...Heartbeat...");
+
+                AddCsrfToken(request);
+
+                HttpResponseMessage response = await httpClient.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Heartbeat successful.");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine($"Heartbeat failed: {response.StatusCode}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending heartbeat: {ex.Message}");
+                return false;
+            }
+        }
+
         public async Task<StreamSettings> GetStreamSettingsAsync()
         {            
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "...Get...");

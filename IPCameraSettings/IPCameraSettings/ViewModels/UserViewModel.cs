@@ -11,7 +11,7 @@ using System.Windows.Input;
 namespace IPCameraSettings.ViewModels
 {
     public class UserViewModel : ViewModelBase
-    {
+    {       
         private string ipAddress;
         public string IPAddress
         {
@@ -57,12 +57,12 @@ namespace IPCameraSettings.ViewModels
                 bool isLoggedIn = await apiClient.LoginAsync(Username, Password);
 
                 if (isLoggedIn)
-                {
+                {   
                     MessageBox.Show("Login successful!");
                                        
                     Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        SettingsWindow settingsWindow = new SettingsWindow(new SettingsViewModel(apiClient));
+                    {                        
+                        SettingsWindow settingsWindow = new SettingsWindow(new SettingsViewModel(apiClient));                        
                         settingsWindow.Show();
                         Application.Current.MainWindow.Close();
                     });

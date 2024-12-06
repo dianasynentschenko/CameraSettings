@@ -16,6 +16,8 @@ namespace IPCameraSettings.ViewModels
 
         private StreamSettings streamSettings;
 
+        public HeartbeatViewModel Heartbeat { get; }
+
         public StreamSettings StreamSettings
         {
             get => streamSettings;
@@ -27,6 +29,7 @@ namespace IPCameraSettings.ViewModels
         public SettingsViewModel(ApiClient apiClient)
         { 
             this.apiClient = apiClient;
+            Heartbeat = new HeartbeatViewModel(apiClient);
 
             _ = LoadSettingsAsync();
 
