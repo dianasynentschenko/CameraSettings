@@ -42,4 +42,23 @@ namespace IPCameraSettings.Models
         [JsonProperty("i_frame_interval")]
         public int IFrameInterval { get; set; }
     }
+
+    public class ChannelInfo
+    {
+        [JsonProperty("CH1")]
+        public StreamSettings CH1 { get; set; }
+    }
+
+    public class DataWrapper
+    {
+        [JsonProperty("channel_info")]
+        public ChannelInfo ChannelInfo { get; set; }
+    }
+
+    public class RequestPayload
+    {
+        [JsonProperty("data")]
+        public DataWrapper Data { get; set; }
+    }
 }
+    

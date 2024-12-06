@@ -26,13 +26,45 @@ namespace IPCameraSettings.ViewModels
 
         public ICommand LoadSettingsCommand { get; }
 
+        public ICommand SaveSettingsCommand { get; }
+
         public SettingsViewModel(ApiClient apiClient)
         { 
             this.apiClient = apiClient;
             Heartbeat = new HeartbeatViewModel(apiClient);
+            SaveSettingsCommand = new RelayCommand(async (param) => await SaveSettingsAsync());
 
             _ = LoadSettingsAsync();
 
+        }
+
+
+        private async Task SaveSettingsAsync()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+            try
+            {
+                bool success = await apiClient.UpdateStreamSettingsAsync(StreamSettings);
+                if (success)
+                {
+                    MessageBox.Show("Settings saved successfully.");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to save settings.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to save settings: {ex.Message}");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         public async Task LoadSettingsAsync()

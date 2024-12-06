@@ -8,6 +8,8 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+
 
 namespace IPCameraSettings.Services
 {
@@ -16,6 +18,7 @@ namespace IPCameraSettings.Services
         private readonly HttpClient httpClient;
         private readonly CookieContainer cookieContainer;
         private string csrfToken;
+      
 
         public ApiClient(string baseURL, string username, string password)
         {                       
@@ -154,6 +157,7 @@ namespace IPCameraSettings.Services
             try
             {                
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "...Heartbeat...");
+                await LogRequest(request);
 
                 AddCsrfToken(request);
 
@@ -179,8 +183,7 @@ namespace IPCameraSettings.Services
 
         public async Task<StreamSettings> GetStreamSettingsAsync()
         {            
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "...Get...");
-
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "...Get...");         
             AddCsrfToken(request);
              
             HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -190,60 +193,135 @@ namespace IPCameraSettings.Services
             // return JsonConvert.DeserializeObject<StreamSettings>(json);
 
             try
-            {
-                JObject jObject = JObject.Parse(json);
-
-                JToken ch1Data = jObject["data"]?["channel_info"]?["CH1"];
-                if (ch1Data != null)
+            {              
+                var payload = JsonConvert.DeserializeObject<RequestPayload>(json);
+                           
+                if (payload?.Data?.ChannelInfo?.CH1 != null)
                 {
-                    return ch1Data.ToObject<StreamSettings>();
+                    return payload.Data.ChannelInfo.CH1;
                 }
                 else
                 {
-                    throw new Exception("Channel data not found in JSON response.");
+                    throw new Exception("Channel data (CH1) not found in JSON response.");
                 }
             }
-            catch (JsonException ex)
-            {
+            catch (JsonSerializationException ex)
+            {              
                 throw new Exception("Error deserializing StreamSettings: " + ex.Message);
+            }
+            catch (Exception ex)
+            {             
+                throw new Exception("Error fetching StreamSettings: " + ex.Message);
             }
         }
 
 
-        public async Task<bool> UpdateStreamSettingsAsync()
+        public async Task<bool> UpdateStreamSettingsAsync(StreamSettings settings)
         {
-            string url = "...Set...";
+            if (settings == null)
+            {
+                Console.WriteLine("Stream settings are missing.");
+                return false;
+            }
 
-            // JSON
-            string json = "";
+            string url = "...Set...";
+                        
+            var payload = new RequestPayload
+            {
+                Data = new DataWrapper
+                {
+                    ChannelInfo = new ChannelInfo
+                    {
+                        CH1 = settings
+                    }
+                }
+            };
+           
+            string json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+
+            
+            int insertIndex = json.IndexOf('{') + 1;
+            json = json.Insert(insertIndex, "\n    "); 
+
+            Console.WriteLine($"Serialized JSON:\n{json}");
 
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            // create request
-            HttpRequestMessage  request = new HttpRequestMessage(HttpMethod.Post, url);
-           
-            AddCsrfToken(request);// add X-CSRFToken
-                                  
-            request.Content = content;
-
-            // send request
-            HttpResponseMessage response = await httpClient.SendAsync(request);            
-            LogResponse(response);
-
-            if (response.IsSuccessStatusCode)
+                     
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url)
             {
-                Console.WriteLine("Stream settings updated successfully!");
-                return true;
+                Content = content
+            };
+            await LogRequest(request);
+
+            AddCsrfToken(request); 
+
+            CookieCollection cookies = cookieContainer.GetCookies(httpClient.BaseAddress);
+            foreach (Cookie cookie in cookies)
+            {
+                Console.WriteLine($"Cookie: {cookie.Name} = {cookie.Value}");
+            }
+
+            string sessionCookie = cookies["session"]?.Value;
+            if (!string.IsNullOrEmpty(sessionCookie))
+            {
+                request.Headers.Add("Cookie", $"session={sessionCookie}");
             }
             else
             {
-                Console.WriteLine($"Failed to update stream settings. Status: {response.StatusCode}");
-                string errorContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Error Response: {errorContent}");
+                Console.WriteLine("Warning: Session cookie is missing.");
+            }
+
+            Console.WriteLine("Request headers:");
+            foreach (var header in request.Headers)
+            {
+                Console.WriteLine($"{header.Key}: {string.Join(", ", header.Value)}");
+            }
+
+            try
+            {
+                Console.WriteLine($"Sending request to {url}");
+             
+                HttpResponseMessage response = await httpClient.SendAsync(request);
+
+                Console.WriteLine($"Response received. Status Code: {response.StatusCode}");
+                            
+                string responseContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Response Content:\n{responseContent}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Stream settings updated successfully!");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Failed to update stream settings.");
+                                       
+                    try
+                    {
+                        JObject errorDetails = JObject.Parse(responseContent);
+                        Console.WriteLine($"Error Code: {errorDetails["error_code"]}");
+                        Console.WriteLine($"Error Message: {errorDetails["message"] ?? "No additional error message provided"}");
+                        if (errorDetails["invalid_params"] != null)
+                        {
+                            Console.WriteLine($"Invalid Parameters: {errorDetails["invalid_params"]}");
+                        }
+                    }
+                    catch (JsonException)
+                    {
+                        Console.WriteLine("Error response is not a valid JSON.");
+                    }
+
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating stream settings: {ex.Message}");
                 return false;
             }
         }
-
+     
 
         private void AddCsrfToken(HttpRequestMessage request)
         {
