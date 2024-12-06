@@ -28,7 +28,7 @@ namespace IPCameraSettings.ViewModels
         { 
             this.apiClient = apiClient;
 
-            LoadSettingsCommand = new RelayCommand(async _ => await LoadSettingsAsync());
+            _ = LoadSettingsAsync();
 
         }
 

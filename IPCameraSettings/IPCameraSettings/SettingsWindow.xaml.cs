@@ -29,7 +29,6 @@ namespace IPCameraSettings
         public SettingsWindow(SettingsViewModel viewModel)
         {
             InitializeComponent();
-
             DataContext = viewModel;
         }
                 

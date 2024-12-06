@@ -39,7 +39,7 @@ namespace IPCameraSettings.ViewModels
 
         public UserViewModel()
         {
-            LoginCommand = new RelayCommand(async _ => await LoginAsync());
+            LoginCommand = new RelayCommand(async _ => await LoginAsync());          
         }
 
         public async Task<bool> LoginAsync()
