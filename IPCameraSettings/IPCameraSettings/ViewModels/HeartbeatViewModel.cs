@@ -30,10 +30,11 @@ namespace IPCameraSettings.ViewModels
             };
 
             timer.Tick += async (s, e) => await SendHeartbeatAsync();
+            _ = SendHeartbeatAsync();
             timer.Start();
         }
 
-        private async Task SendHeartbeatAsync()
+        public async Task SendHeartbeatAsync()
         {
             try
             {

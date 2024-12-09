@@ -21,10 +21,15 @@ namespace IPCameraSettings.ViewModels
         public ChannelInfoViewModel(ApiClient apiClient)
         {
             this.apiClient = apiClient;
-            _ = LoadChannelInfoAsync();
+          
         }
 
-        private async Task LoadChannelInfoAsync()
+        public async Task InitializeAsync()
+        {
+            await LoadChannelInfoAsync();
+        }
+
+        public async Task LoadChannelInfoAsync()
         {
             try
             {

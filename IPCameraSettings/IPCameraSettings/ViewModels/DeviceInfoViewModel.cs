@@ -21,10 +21,15 @@ namespace IPCameraSettings.ViewModels
         public DeviceInfoViewModel(ApiClient apiClient)
         {
             this.apiClient = apiClient;
-            _ = LoadDeviceInfoAsync();
+          
         }
 
-        private async Task LoadDeviceInfoAsync()
+        public async Task InitializeAsync()
+        {
+            await LoadDeviceInfoAsync();
+        }
+
+        public async Task LoadDeviceInfoAsync()
         {
             try
             {

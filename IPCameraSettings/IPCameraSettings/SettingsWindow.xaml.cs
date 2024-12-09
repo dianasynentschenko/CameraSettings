@@ -26,10 +26,10 @@ namespace IPCameraSettings
         private readonly ApiClient apiClient;
         private StreamSettings streamSettings;        
 
-        public SettingsWindow(SettingsViewModel viewModel)
+        public SettingsWindow(SettingsViewModel settingsViewModel)
         {
             InitializeComponent();
-            DataContext = viewModel;
+            DataContext = settingsViewModel;
         }
                 
     }

@@ -12,6 +12,7 @@ namespace IPCameraSettings.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
+        private bool isInitialized = false;
         private readonly ApiClient apiClient;
 
         private StreamSettings streamSettings;
@@ -40,10 +41,29 @@ namespace IPCameraSettings.ViewModels
             ChannelInfo = new ChannelInfoViewModel(apiClient);
             SaveSettingsCommand = new RelayCommand(async (param) => await SaveSettingsAsync());
             
+            _ = LoadSettingsAsync();        
 
-            _ = LoadSettingsAsync();
+        }
 
+        public async Task InitializeAsync()
+        {
+            if (isInitialized)
+                return;
 
+            isInitialized = true;
+
+            try
+            {               
+                await Task.WhenAll(
+                    Heartbeat.SendHeartbeatAsync(),
+                    DeviceInfo.InitializeAsync(),
+                    ChannelInfo.InitializeAsync()
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Initialization error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
 

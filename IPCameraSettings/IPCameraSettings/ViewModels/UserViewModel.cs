@@ -11,7 +11,7 @@ using System.Windows.Input;
 namespace IPCameraSettings.ViewModels
 {
     public class UserViewModel : ViewModelBase
-    {       
+    {   
         private string ipAddress;
         public string IPAddress
         {
@@ -38,8 +38,9 @@ namespace IPCameraSettings.ViewModels
         public ICommand LoginCommand { get; }
 
         public UserViewModel()
-        {
-            LoginCommand = new RelayCommand(async _ => await LoginAsync());          
+        {            
+            LoginCommand = new RelayCommand(async _ => await LoginAsync());    
+            
         }
 
         public async Task<bool> LoginAsync()
@@ -59,13 +60,8 @@ namespace IPCameraSettings.ViewModels
                 if (isLoggedIn)
                 {   
                     MessageBox.Show("Login successful!");
-                                       
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {                        
-                        SettingsWindow settingsWindow = new SettingsWindow(new SettingsViewModel(apiClient));                        
-                        settingsWindow.Show();
-                        Application.Current.MainWindow.Close();
-                    });
+
+                    await InitializeSettingsWindow();                  
 
                     return true;
                 }
@@ -86,5 +82,21 @@ namespace IPCameraSettings.ViewModels
                 IsBusy = false;
             }
         }
+
+        private async Task InitializeSettingsWindow()
+        {            
+            var settingsViewModel = new SettingsViewModel(apiClient);
+                        
+            await settingsViewModel.InitializeAsync();
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var settingsWindow = new SettingsWindow(settingsViewModel);
+                settingsWindow.Show();
+                Application.Current.MainWindow.Close();
+            });
+        }
+
+
     }
 }

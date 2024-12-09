@@ -3,9 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:IPCameraSettings.ViewModels"
         Title="SettingsWindow" Height="543" Width="359" Background="#E3F2FD">
-    <Window.DataContext>
-        <vm:UserViewModel />
-    </Window.DataContext>
+    
 
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
