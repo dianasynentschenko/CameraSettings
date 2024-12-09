@@ -211,6 +211,36 @@ namespace IPCameraSettings.Services
             }
         }
 
+
+        public async Task<bool> GetChannelInfoAsync()
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "...ChannelInfo Get...");
+                await LogRequest(request);
+
+                AddCsrfToken(request);
+
+                HttpResponseMessage response = await httpClient.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Channel info successful.");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine($"Channel info failed: {response.StatusCode}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending channel info: {ex.Message}");
+                return false;
+            }
+        }
+
         public async Task<StreamSettings> GetStreamSettingsAsync()
         {            
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "...MainStream Get...");         
