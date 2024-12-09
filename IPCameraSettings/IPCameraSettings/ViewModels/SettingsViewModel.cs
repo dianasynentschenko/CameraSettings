@@ -18,6 +18,8 @@ namespace IPCameraSettings.ViewModels
 
         public HeartbeatViewModel Heartbeat { get; }
 
+        public DeviceInfoViewModel DeviceInfo { get; }
+
         public StreamSettings StreamSettings
         {
             get => streamSettings;
@@ -32,9 +34,12 @@ namespace IPCameraSettings.ViewModels
         { 
             this.apiClient = apiClient;
             Heartbeat = new HeartbeatViewModel(apiClient);
+            DeviceInfo = new DeviceInfoViewModel(apiClient);
             SaveSettingsCommand = new RelayCommand(async (param) => await SaveSettingsAsync());
+            
 
             _ = LoadSettingsAsync();
+
 
         }
 

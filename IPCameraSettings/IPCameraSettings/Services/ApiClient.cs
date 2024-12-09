@@ -155,7 +155,7 @@ namespace IPCameraSettings.Services
         public async Task<bool> SendHeartbeatAsync()
         {
             try
-            {                
+            {
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "...Heartbeat...");
                 await LogRequest(request);
 
@@ -181,9 +181,39 @@ namespace IPCameraSettings.Services
             }
         }
 
+
+        public async Task<bool> GetDeviceInfoAsync()
+        {
+            try
+            {                
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "...DeviceInfo Get...");
+                await LogRequest(request);
+
+                AddCsrfToken(request);
+
+                HttpResponseMessage response = await httpClient.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Device info successful.");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine($"Device info failed: {response.StatusCode}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending device info: {ex.Message}");
+                return false;
+            }
+        }
+
         public async Task<StreamSettings> GetStreamSettingsAsync()
         {            
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "...Get...");         
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "...MainStream Get...");         
             AddCsrfToken(request);
              
             HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -224,7 +254,7 @@ namespace IPCameraSettings.Services
                 return false;
             }
 
-            string url = "...Set...";
+            string url = "...MainStream Set...";
                         
             var payload = new RequestPayload
             {
