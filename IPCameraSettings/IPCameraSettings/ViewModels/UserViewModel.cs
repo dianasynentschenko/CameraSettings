@@ -58,9 +58,7 @@ namespace IPCameraSettings.ViewModels
                 bool isLoggedIn = await apiClient.LoginAsync(Username, Password);
 
                 if (isLoggedIn)
-                {   
-                    MessageBox.Show("Login successful!");
-
+                {      
                     await InitializeSettingsWindow();                  
 
                     return true;

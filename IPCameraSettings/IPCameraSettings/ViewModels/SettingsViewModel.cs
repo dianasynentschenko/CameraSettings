@@ -12,6 +12,13 @@ namespace IPCameraSettings.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
+        private SettingsState settingsState;
+        public SettingsState SettingsState
+        {
+            get => settingsState;
+            set => SetProperty(ref settingsState, value);
+        }
+
         private bool isInitialized = false;
         private readonly ApiClient apiClient;
 
@@ -39,8 +46,8 @@ namespace IPCameraSettings.ViewModels
             Heartbeat = new HeartbeatViewModel(apiClient);
             DeviceInfo = new DeviceInfoViewModel(apiClient);
             ChannelInfo = new ChannelInfoViewModel(apiClient);
-            SaveSettingsCommand = new RelayCommand(async (param) => await SaveSettingsAsync());
-            
+            SaveSettingsCommand = new RelayCommand(async (param) => await SaveSettingsAsync());          
+
             _ = LoadSettingsAsync();        
 
         }
@@ -51,6 +58,7 @@ namespace IPCameraSettings.ViewModels
                 return;
 
             isInitialized = true;
+            SettingsState = SettingsState.LoadingSettings;
 
             try
             {   
@@ -59,9 +67,11 @@ namespace IPCameraSettings.ViewModels
                     DeviceInfo.InitializeAsync(),
                     ChannelInfo.InitializeAsync()
                 );
+                SettingsState = SettingsState.Loaded;
             }
             catch (Exception ex)
             {
+                SettingsState = SettingsState.Error;
                 MessageBox.Show($"Initialization error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -69,24 +79,33 @@ namespace IPCameraSettings.ViewModels
 
         private async Task SaveSettingsAsync()
         {
-            if (IsBusy)
+            if (IsBusy || SettingsState == SettingsState.SavingSettings)
                 return;
 
             IsBusy = true;
+            SettingsState = SettingsState.SavingSettings;
+
             try
             {
                 bool success = await apiClient.UpdateStreamSettingsAsync(StreamSettings);
                 if (success)
                 {
-                    MessageBox.Show("Settings saved successfully.");
+                    SettingsState = SettingsState.LoadingSettings;
+                    await Task.Delay(500);
+                    Console.WriteLine($"State changed: {SettingsState}");
+                    await LoadSettingsAsync();
+                    SettingsState = SettingsState.Loaded;                 
+
                 }
                 else
                 {
+                    SettingsState = SettingsState.Error;
                     MessageBox.Show("Failed to save settings.");
                 }
             }
             catch (Exception ex)
             {
+                SettingsState = SettingsState.Error;
                 MessageBox.Show($"Failed to save settings: {ex.Message}");
             }
             finally
@@ -97,17 +116,20 @@ namespace IPCameraSettings.ViewModels
 
         public async Task LoadSettingsAsync()
         {
-            if (IsBusy)
+            if (IsBusy || SettingsState == SettingsState.LoadingSettings)
                 return;
 
             IsBusy = true;
+            SettingsState = SettingsState.LoadingSettings;
+
             try
-            {
+            {               
                 StreamSettings = await apiClient.GetStreamSettingsAsync();
-                MessageBox.Show("Settings loaded successfully.");
+                SettingsState = SettingsState.Loaded;             
             }
             catch (Exception ex)
             {
+                SettingsState = SettingsState.Error;
                 MessageBox.Show($"Failed to load settings: {ex.Message}");
             }
             finally

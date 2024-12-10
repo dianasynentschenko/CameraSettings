@@ -7,28 +7,32 @@
       "RelativeMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|solutionrelative:ipcamerasettings\\services\\apiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|D:\\0_VIDEOR\\Projects\\IPCameraSettings\\ipcamerasettings\\viewmodels\\userviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|solutionrelative:ipcamerasettings\\viewmodels\\userviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|D:\\0_VIDEOR\\Projects\\IPCameraSettings\\ipcamerasettings\\viewmodels\\settingsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|solutionrelative:ipcamerasettings\\viewmodels\\settingsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|D:\\0_VIDEOR\\Projects\\IPCameraSettings\\ipcamerasettings\\viewmodels\\heartbeatviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|solutionrelative:ipcamerasettings\\viewmodels\\heartbeatviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|d:\\0_videor\\projects\\ipcamerasettings\\ipcamerasettings\\viewmodels\\heartbeatstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|solutionrelative:ipcamerasettings\\viewmodels\\heartbeatstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|D:\\0_VIDEOR\\Projects\\IPCameraSettings\\ipcamerasettings\\settingswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|solutionrelative:ipcamerasettings\\settingswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|D:\\0_VIDEOR\\Projects\\IPCameraSettings\\ipcamerasettings\\viewmodels\\userviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|solutionrelative:ipcamerasettings\\viewmodels\\userviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|d:\\0_videor\\projects\\ipcamerasettings\\ipcamerasettings\\viewmodels\\settingsstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|solutionrelative:ipcamerasettings\\viewmodels\\settingsstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|D:\\0_VIDEOR\\Projects\\IPCameraSettings\\ipcamerasettings\\viewmodels\\heartbeatstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|solutionrelative:ipcamerasettings\\viewmodels\\heartbeatstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|D:\\0_VIDEOR\\Projects\\IPCameraSettings\\ipcamerasettings\\settingswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|solutionrelative:ipcamerasettings\\settingswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|D:\\0_VIDEOR\\Projects\\IPCameraSettings\\ipcamerasettings\\viewmodels\\heartbeatviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|solutionrelative:ipcamerasettings\\viewmodels\\heartbeatviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B0BD93DC-41C6-445F-8178-A5591F3B3D8B}|IPCameraSettings\\IPCameraSettings.csproj|D:\\0_VIDEOR\\Projects\\IPCameraSettings\\ipcamerasettings\\viewmodels\\viewmodelbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -66,62 +70,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "HeartbeatState.cs",
-              "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\HeartbeatState.cs",
-              "RelativeDocumentMoniker": "IPCameraSettings\\ViewModels\\HeartbeatState.cs",
-              "ToolTip": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\HeartbeatState.cs",
-              "RelativeToolTip": "IPCameraSettings\\ViewModels\\HeartbeatState.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-10T08:22:26.127Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "HeartbeatViewModel.cs",
-              "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\HeartbeatViewModel.cs",
-              "RelativeDocumentMoniker": "IPCameraSettings\\ViewModels\\HeartbeatViewModel.cs",
-              "ToolTip": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\HeartbeatViewModel.cs",
-              "RelativeToolTip": "IPCameraSettings\\ViewModels\\HeartbeatViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T09:37:09.312Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SettingsViewModel.cs",
-              "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\SettingsViewModel.cs",
-              "RelativeDocumentMoniker": "IPCameraSettings\\ViewModels\\SettingsViewModel.cs",
-              "ToolTip": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\SettingsViewModel.cs",
-              "RelativeToolTip": "IPCameraSettings\\ViewModels\\SettingsViewModel.cs",
-              "ViewState": "AgIAAFQAAAAAAAAAAAAuwDkAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T08:25:46.5Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "DeviceInfoViewModel.cs",
-              "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\DeviceInfoViewModel.cs",
-              "RelativeDocumentMoniker": "IPCameraSettings\\ViewModels\\DeviceInfoViewModel.cs",
-              "ToolTip": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\DeviceInfoViewModel.cs",
-              "RelativeToolTip": "IPCameraSettings\\ViewModels\\DeviceInfoViewModel.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAUwB4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-09T08:01:35.18Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "SettingsWindow.xaml",
               "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\SettingsWindow.xaml",
               "RelativeDocumentMoniker": "IPCameraSettings\\SettingsWindow.xaml",
@@ -133,7 +86,31 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
+              "Title": "HeartbeatViewModel.cs",
+              "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\HeartbeatViewModel.cs",
+              "RelativeDocumentMoniker": "IPCameraSettings\\ViewModels\\HeartbeatViewModel.cs",
+              "ToolTip": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\HeartbeatViewModel.cs",
+              "RelativeToolTip": "IPCameraSettings\\ViewModels\\HeartbeatViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-06T09:37:09.312Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DeviceInfoViewModel.cs",
+              "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\DeviceInfoViewModel.cs",
+              "RelativeDocumentMoniker": "IPCameraSettings\\ViewModels\\DeviceInfoViewModel.cs",
+              "ToolTip": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\DeviceInfoViewModel.cs",
+              "RelativeToolTip": "IPCameraSettings\\ViewModels\\DeviceInfoViewModel.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAUwB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-09T08:01:35.18Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "RelayCommand.cs",
               "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\RelayCommand.cs",
               "RelativeDocumentMoniker": "IPCameraSettings\\ViewModels\\RelayCommand.cs",
@@ -145,33 +122,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "UserViewModel.cs",
-              "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\UserViewModel.cs",
-              "RelativeDocumentMoniker": "IPCameraSettings\\ViewModels\\UserViewModel.cs",
-              "ToolTip": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\UserViewModel.cs",
-              "RelativeToolTip": "IPCameraSettings\\ViewModels\\UserViewModel.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T08:26:05.973Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "ApiClient.cs",
               "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\Services\\ApiClient.cs",
               "RelativeDocumentMoniker": "IPCameraSettings\\Services\\ApiClient.cs",
               "ToolTip": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\Services\\ApiClient.cs",
               "RelativeToolTip": "IPCameraSettings\\Services\\ApiClient.cs",
-              "ViewState": "AgIAACMBAAAAAAAAAAAiwB4BAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAArwHAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-06T08:26:21.726Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "ViewModelBase.cs",
               "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\ViewModelBase.cs",
               "RelativeDocumentMoniker": "IPCameraSettings\\ViewModels\\ViewModelBase.cs",
@@ -191,11 +155,64 @@
               "RelativeToolTip": "IPCameraSettings\\SettingsWindow.xaml.cs",
               "ViewState": "AgIAABUAAAAAAAAAAAAqwB8AAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T08:27:04.042Z"
+              "WhenOpened": "2024-12-06T08:27:04.042Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 4,
+              "Title": "SettingsState.cs",
+              "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\SettingsState.cs",
+              "RelativeDocumentMoniker": "IPCameraSettings\\ViewModels\\SettingsState.cs",
+              "ToolTip": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\SettingsState.cs",
+              "RelativeToolTip": "IPCameraSettings\\ViewModels\\SettingsState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-10T09:15:28.692Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserViewModel.cs",
+              "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\UserViewModel.cs",
+              "RelativeDocumentMoniker": "IPCameraSettings\\ViewModels\\UserViewModel.cs",
+              "ToolTip": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\UserViewModel.cs",
+              "RelativeToolTip": "IPCameraSettings\\ViewModels\\UserViewModel.cs",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAQwBcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-06T08:26:05.973Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SettingsViewModel.cs",
+              "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\SettingsViewModel.cs",
+              "RelativeDocumentMoniker": "IPCameraSettings\\ViewModels\\SettingsViewModel.cs",
+              "ToolTip": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\SettingsViewModel.cs",
+              "RelativeToolTip": "IPCameraSettings\\ViewModels\\SettingsViewModel.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAUwG8AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-06T08:25:46.5Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "HeartbeatState.cs",
+              "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\HeartbeatState.cs",
+              "RelativeDocumentMoniker": "IPCameraSettings\\ViewModels\\HeartbeatState.cs",
+              "ToolTip": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\HeartbeatState.cs",
+              "RelativeToolTip": "IPCameraSettings\\ViewModels\\HeartbeatState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-10T08:22:26.127Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "ChannelInfoViewModel.cs",
               "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\ViewModels\\ChannelInfoViewModel.cs",
               "RelativeDocumentMoniker": "IPCameraSettings\\ViewModels\\ChannelInfoViewModel.cs",
@@ -207,7 +224,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\MainWindow.xaml",
               "RelativeDocumentMoniker": "IPCameraSettings\\MainWindow.xaml",
@@ -218,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "IPCameraSettings\\MainWindow.xaml.cs",
@@ -230,7 +247,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "StreamSettings.cs",
               "DocumentMoniker": "D:\\0_VIDEOR\\Projects\\IPCameraSettings\\IPCameraSettings\\Models\\StreamSettings.cs",
               "RelativeDocumentMoniker": "IPCameraSettings\\Models\\StreamSettings.cs",
