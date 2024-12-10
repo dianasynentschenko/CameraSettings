@@ -64,6 +64,7 @@
     </Compile>
     <Compile Include="ViewModels\ChannelInfoViewModel.cs" />
     <Compile Include="ViewModels\DeviceInfoViewModel.cs" />
+    <Compile Include="ViewModels\HeartbeatState.cs" />
     <Compile Include="ViewModels\HeartbeatViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />

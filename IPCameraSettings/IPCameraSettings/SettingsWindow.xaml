@@ -29,11 +29,10 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
+  
         <!-- Heartbeat -->
-        <TextBlock Text="Heartbeat Status:" Foreground="#1E88E5" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Margin="5" VerticalAlignment="Center" />
-        <TextBox Text="{Binding Heartbeat.HeartbeatStatus}" IsReadOnly="True" Grid.Row="0" Grid.Column="1" Margin="26,5,26,5" />
-
+        <TextBlock Text="HEARTBEAT STATE" Foreground="Gray" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+        <TextBlock Text="{Binding Heartbeat.HeartbeatState}" FontWeight="Bold" Foreground="Green"   Grid.Row="0" Grid.Column="1" Margin="26,5,26,5" />
 
         <!-- Resolution -->
         <TextBlock Text="RESOLUTION:" Foreground="#1E88E5" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Margin="5" VerticalAlignment="Center" />

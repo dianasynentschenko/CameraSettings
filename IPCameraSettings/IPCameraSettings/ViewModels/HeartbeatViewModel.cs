@@ -13,6 +13,13 @@ namespace IPCameraSettings.ViewModels
         private ApiClient apiClient;
         private readonly DispatcherTimer timer;
 
+        private HeartbeatState heartbeatState;
+        public HeartbeatState HeartbeatState
+        {
+            get => heartbeatState;
+            set => SetProperty(ref heartbeatState, value);
+        }
+
         private string heartbeatStatus;
         public string HeartbeatStatus
         {
@@ -29,20 +36,44 @@ namespace IPCameraSettings.ViewModels
                 Interval = TimeSpan.FromSeconds(30)
             };
 
-            timer.Tick += async (s, e) => await SendHeartbeatAsync();
-            _ = SendHeartbeatAsync();
-            timer.Start();
+            timer.Tick += async (s, e) => await PerformHeartbeatAsync();
+            HeartbeatState = HeartbeatState.Idle;           
         }
 
-        public async Task SendHeartbeatAsync()
+
+        public async Task StartAsync()
         {
+            if (heartbeatState == HeartbeatState.Idle)
+            { 
+                timer.Start();
+                await PerformHeartbeatAsync();
+            }
+        }
+
+        private async Task PerformHeartbeatAsync()
+        {
+            if (heartbeatState == HeartbeatState.Checking)
+                return;
+
             try
             {
+                HeartbeatState = HeartbeatState.Checking;
+                HeartbeatStatus = "Checking...";
                 bool isAlive = await apiClient.SendHeartbeatAsync();
-                HeartbeatStatus = isAlive ? "Server is alive" : "Server is down";
+                if (isAlive)
+                {
+                    HeartbeatState = HeartbeatState.Alive;
+                    HeartbeatStatus = "Server is alive";
+                }
+                else
+                {
+                    HeartbeatState = HeartbeatState.Error;
+                    HeartbeatStatus = "Server is down";
+                }
             }
             catch (Exception ex)
             {
+                HeartbeatState = HeartbeatState.Error;
                 HeartbeatStatus = $"Error: {ex.Message}";
             }
         }
@@ -52,6 +83,7 @@ namespace IPCameraSettings.ViewModels
             if (timer.IsEnabled)
             {
                 timer.Stop();
+                heartbeatState = HeartbeatState.Idle;
             }
         }
     }

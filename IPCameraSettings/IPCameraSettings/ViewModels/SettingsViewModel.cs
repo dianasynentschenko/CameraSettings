@@ -53,9 +53,9 @@ namespace IPCameraSettings.ViewModels
             isInitialized = true;
 
             try
-            {               
-                await Task.WhenAll(
-                    Heartbeat.SendHeartbeatAsync(),
+            {   
+                await Heartbeat.StartAsync();
+                await Task.WhenAll(                   
                     DeviceInfo.InitializeAsync(),
                     ChannelInfo.InitializeAsync()
                 );
